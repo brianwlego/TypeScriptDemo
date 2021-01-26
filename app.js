@@ -1,7 +1,9 @@
 "use strict";
-var num1Element = document.getElementById('num1');
-var num2Element = document.getElementById('num2');
-var btn = document.querySelector('button');
+const num1Element = document.getElementById('num1');
+const num2Element = document.getElementById('num2');
+const btn = document.querySelector('button');
+const numResults = [];
+const textResults = [];
 function add(num1, num2) {
     if (typeof num1 === 'number' && typeof num2 === 'number') {
         return num1 + num2;
@@ -13,11 +15,27 @@ function add(num1, num2) {
         return +num1 + +num2;
     }
 }
-btn.addEventListener('click', function () {
-    var num1 = num1Element.value;
-    var num2 = num2Element.value;
-    var result = add(+num1, +num2);
-    var stringResult = add(num1, num2);
+function printResult(resultObj) {
+    console.log(resultObj.val, resultObj.timestamp);
+}
+btn.addEventListener('click', () => {
+    const num1 = num1Element.value;
+    const num2 = num2Element.value;
+    const result = add(+num1, +num2);
+    numResults.push(result);
+    const stringResult = add(num1, num2);
+    textResults.push(stringResult);
     console.log(result);
     console.log(stringResult);
+    printResult({ val: result, timestamp: new Date() });
+    console.log(numResults);
+    console.log(textResults);
+});
+const myPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('It worked!');
+    }, 1000);
+});
+myPromise.then(result => {
+    console.log(result.split('w'));
 });
