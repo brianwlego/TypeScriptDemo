@@ -15,6 +15,18 @@ router.post('/todo', (req, res, next) => {
     id: new Date().toISOString(), 
     text: req.body.text
   }
+  todos.push(newTodo)
 })
+router.put('/todo/:id', (req, res, next) => {
+  const tid = req.params.id
+  const todoIdx = todos.findIndex(item => item.id === tid)
+  if (todoIdx >= 0){
+    todos[todoIdx] = { id:todos[todoIdx].id, text: req.body.text }
+  } else {
+    res.status(404).json({message: "Todo not valid"})
+  }
+
+})
+
 
 export default router;
